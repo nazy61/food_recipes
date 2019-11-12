@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
+import './screens/filters_screen.dart';
+import './screens/tabs_screen.dart';
 import './screens/categories_screen.dart';
 import './screens/category_meals_screen.dart';
+import './screens/meal_detail_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -30,9 +33,24 @@ class MyApp extends StatelessWidget {
               ),
             ),
       ),
-      home: CategoriesScreen(),
+      //home: CategoriesScreen(),
+      initialRoute: 'home',
       routes: {
+        'home': (ctx) => TabsScreen(),
         CategoryMealsScreen.routeName: (ctx) => CategoryMealsScreen(),
+        MealDetailScreen.routeName: (ctx) => MealDetailScreen(),
+        FiltersScreen.routeName: (ctx) => FiltersScreen(),
+      },
+      //gives you an information about the route
+      //reached when flutter does not find the route or page you want to display
+      onGenerateRoute: (settings) {
+        print(settings.arguments);
+      },
+      //if the route defined in 'onGenerateRoute' is not found or its not defined,
+      //flutter tries to fallback to this argument before it throws an error 
+      //example: Page not Found, 404 error page
+      onUnknownRoute: (settings) {
+        return MaterialPageRoute(builder: (ctx) => TabsScreen());
       },
     );
   }
